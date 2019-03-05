@@ -1,5 +1,5 @@
-function [ Ad ] = Adjoint_SEN3( X )
-%ADJOINT_SE3 Computes the adjoint of SEN(3)
+function [ Ad ] = Adjoint_SEK3( X )
+%ADJOINT_SE3 Computes the matrix representation of the Adjoint of SEK(3)
 N = size(X,1)-3;
 Ad = X(1:3,1:3);
 for i=1:N

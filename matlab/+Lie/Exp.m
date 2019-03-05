@@ -1,15 +1,12 @@
-function [ output ] = Exp( v )
-%EXP Computes the vectorized exponential map (at the identity) as defined in:
-% http://www.roboticsproceedings.org/rss11/p06.pdf
-
-A = Lie.skew(v);
-norm_v = norm(v);
-
-if norm_v == 0
-    output = eye(3);
+function [X] = Exp(xi)
+%EXP Computes the vectorized exponential map 
+N = length(xi);
+assert(N>=3,'dimension of input vector must be at least 3');
+assert(mod(N,3)==0, 'dimension of input vector must be a multiple of 3');
+if (N==3)
+    X = Lie.Exp_SO3(xi);
 else
-    output = eye(3) + (sin(norm_v)/norm_v)*A + ((1-cos(norm_v))/(norm_v^2))*A^2;
+    X = Lie.Exp_SEK3(xi);
 end
-
 end
 

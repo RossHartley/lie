@@ -6,12 +6,9 @@ phi = norm(Phi);
 Rho = xi(4:6);
 Phi_skew = Lie.skew(Phi);
 Rho_skew = Lie.skew(Rho);
-
-tol = 1e-20;
-
 J = Lie.LeftJacobian_SO3(Phi);
 
-if (phi < tol)
+if (phi == 0)
     Q = 0.5*Rho_skew;
 else
     Q = 0.5*Rho_skew ...
@@ -21,6 +18,5 @@ else
         * (Phi_skew*Rho_skew*Phi_skew*Phi_skew + Phi_skew*Phi_skew*Rho_skew*Phi_skew);
 end
 output = [J, zeros(3); Q, J];
-
 end
 

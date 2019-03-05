@@ -1,15 +1,12 @@
-function [ output ] = Log( A )
-%EXP Computes the vectorized exponential map (at the identity) as defined in:
-% http://www.roboticsproceedings.org/rss11/p06.pdf
-
-phi = acos((trace(A)-1)/2);
-
-if (phi == 0)
-    output = zeros(3,1);
-    return;
+function [xi] = Log(X)
+%LOG Computes the vectorized log map
+[N,M] = size(X);
+assert(N==M,'input matrix must be square');
+assert(N>=3,'dimension of input matrix must be at least 3');
+if (N==3)
+    xi = Lie.Log_SO3(X);
+else
+    xi = Lie.Log_SEK3(X);
 end
-
-output = Lie.unskew(phi*(A-A')/(2*sin(phi)));
-
 end
 

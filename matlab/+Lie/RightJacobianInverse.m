@@ -1,16 +1,12 @@
-function [ output ] = RightJacobianInverse( phi )
-%RIGHTJACOBIANINVERSE as defined in http://www.roboticsproceedings.org/rss11/p06.pdf
-
-norm_phi = norm(phi);
-skew_phi = Angles.skew(phi);
-
-if norm_phi == 0
-    output = eye(3);
-    return;
+function [X] = RightJacobianInverse(xi)
+%RightJacobian Computes the right Jacobian inverse
+N = length(xi);
+assert(N>=3,'dimension of input vector must be at least 3');
+assert(mod(N,3)==0, 'dimension of input vector must be a multiple of 3');
+if (N==3)
+    X = Lie.RightJacobianInverse_SO3(xi);
+else
+    X = Lie.RightJacobianInverse_SEK3(xi);
 end
-
-output = eye(3) + 0.5*skew_phi + ...
-    ( (1.0/(norm_phi^2)) - (1+cos(norm_phi))/(2.0*norm_phi*sin(norm_phi)) )*skew_phi*skew_phi;
-
 end
 
