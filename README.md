@@ -1,2 +1,2 @@
 # lie
-Contains a number of useful functions for diealing with Lie groups
+Contains a number of useful functions for dealing with Lie groups
